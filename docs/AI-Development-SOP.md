@@ -86,12 +86,10 @@ Do not write code or a PRD yet.
 
 ## Short-path skips
 
-
-| Idea type                    | Typical skip                                   |
-| ---------------------------- | ---------------------------------------------- |
-| Obvious bug with known fix   | Research, Prototype, PRD → Kanban or Execution |
-| Tiny refactor                | Research, Prototype, PRD                       |
-| New product or major feature | None                                           |
+| Idea type | What it means | Skip these phases | Start at |
+| --- | --- | --- | --- |
+| **Known bug** | Cause and fix already clear; no design unknowns | Research, Prototype, PRD | Kanban (one issue) or Execution |
+| **Small refactor** | Code cleanup; behavior unchanged | Research, Prototype, PRD | Idea (brief) → Execution |
 
 
 ---
