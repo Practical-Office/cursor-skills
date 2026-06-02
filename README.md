@@ -2,7 +2,9 @@
 
 Org-wide [Cursor Agent Skills](https://cursor.com/docs/agent/skills) for Practical Office engineers. Install once per machine; run `setup-practical-ai-skills` once per application repository.
 
-Skills are **workflows and procedures**. They complement (do not replace) project-specific `.cursor/rules/` and `.cursor/agents/` — e.g. BookIQ keeps its existing doctrine files; skills add reusable playbooks on top.
+Skills are **workflows and procedures**. They complement (do not replace) project-specific `.cursor/rules/` and `.cursor/agents/` — skills add reusable playbooks on top.
+
+**Process:** For the seven-phase pipeline (Idea → Research → Prototype → PRD → Kanban → Execution → QA) and when to invoke each skill in chat, see **[AI-Driven Development SOP](docs/AI-Development-SOP.md)**.
 
 ## Quickstart
 
@@ -90,6 +92,8 @@ To refresh from [mattpocock/skills](https://github.com/mattpocock/skills) upstre
 ```
 cursor-skills/
 ├── README.md
+├── docs/
+│   └── AI-Development-SOP.md
 ├── LICENSE
 ├── ATTRIBUTION.md
 ├── scripts/
