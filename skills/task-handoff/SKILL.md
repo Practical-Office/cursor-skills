@@ -57,7 +57,12 @@ What we were trying to accomplish and why it matters.
 
 ## Suggested skills
 
-Skills the next agent should invoke (e.g. `tdd`, `diagnose`, `create-pr`, `security-secrets-check`).
+Skills the next agent should invoke:
+
+- **Build:** `tdd`, `diagnose`
+- **Pre-PR (required when implementation done):** `trim-pr` → `security-secrets-check` → `review` → `create-pr`
+
+See `docs/AI-Development-SOP.md` Phase 6 for the full pipeline.
 ```
 
 ## Guidelines

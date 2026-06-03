@@ -12,6 +12,8 @@ Two-axis review of the diff between `HEAD` and a fixed point the user supplies:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this skill aggregates their findings.
 
+**Before review:** If the diff feels bloated vs ticket scope, run `/trim-pr` first. Trim edits the branch; review does not.
+
 The issue tracker should have been provided to you — run `/setup-practical-ai-skills` if `docs/agents/issue-tracker.md` is missing.
 
 ## Process

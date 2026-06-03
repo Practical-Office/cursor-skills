@@ -41,7 +41,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 - **By description:** Cursor loads skills when your request matches their description triggers
 - Most skills set `disable-model-invocation: true` — invoke them explicitly for predictable behavior
 
-## Skill index (25)
+## Skill index (26)
 
 | Skill | Purpose |
 |-------|---------|
@@ -57,6 +57,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 | **to-prd** | Turn ideas into a product requirements document |
 | **zoom-out** | Step back from implementation to see the bigger picture |
 | **review** | Review an issue or PR against project standards |
+| **trim-pr** | Pre-merge diff cleanup — cut scope creep and over-engineering |
 | **improve-codebase-architecture** | Analyze and propose architectural improvements |
 | **prototype** | Rapid prototype with explicit UI vs logic separation |
 | **ubiquitous-language** | Align code and docs on domain vocabulary |

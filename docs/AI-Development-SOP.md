@@ -277,7 +277,7 @@ Implement **Ready** tickets until in-scope work is **Done**.
 2. **Plan** — subtasks, files, tests; no code. Long tickets: `/task-handoff`** to persist plan.
 3. **Build** — `/tdd`**, one subtask at a time.
 4. **Debug** on the ticket — `/diagnose`** for hard bugs or perf regressions.
-5. **Pre-PR** — `/security-secrets-check`** → `/review` → `/create-pr`.
+5. **Pre-PR** — `/trim-pr`** (required every ticket; zero cuts OK) → `/security-secrets-check`** → `/review` → `/create-pr`.
 6. Move issue: Ready → In Progress → In Review → Done on merge.
 7. Context getting full — `/handoff` or Cursor `/summarize`, then a fresh chat with paths only.
 
@@ -295,6 +295,15 @@ Pick `Ready` + `ready-for-agent` + unblocked → new chat per issue → plan →
 /tdd
 
 Implement subtask [k] only from approved plan for issue #[N]. Stay in scope.
+```
+
+## Example prompt — pre-PR trim
+
+```text
+/trim-pr
+
+Branch vs staging. Ticket P4-VOY-001. Cut fat; keep MSW + testids + scoped tests.
+Report what you removed and re-run scoped vitest.
 ```
 
 ---
