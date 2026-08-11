@@ -41,7 +41,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 - **By description:** Cursor loads skills when your request matches their description triggers
 - Most skills set `disable-model-invocation: true` — invoke them explicitly for predictable behavior
 
-## Skill index (25)
+## Skill index (26)
 
 | Skill | Purpose |
 |-------|---------|
@@ -67,6 +67,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 | **caveman** | Strip problem to essentials ("caveman debugging") |
 | **security-secrets-check** | Scan diffs for leaked secrets before commit/PR |
 | **task-handoff** | Structured handoff template (goal, done, next, risks, tests) |
+| **pr-review** | Gate PRs: inspect CI/diff, approve or request changes with Why + Next steps, squash-merge when green |
 | **create-pr** | Create GitHub PR via `gh`: status, diff, push, PR body |
 | **tenant-isolation-check** | Review multi-tenant changes for cross-tenant leaks |
 | **release-readiness** | Pre-merge checklist: tests, docs, rollback, security |

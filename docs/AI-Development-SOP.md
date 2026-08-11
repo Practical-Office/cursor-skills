@@ -277,7 +277,7 @@ Implement **Ready** tickets until in-scope work is **Done**.
 2. **Plan** — subtasks, files, tests; no code. Long tickets: `/task-handoff`** to persist plan.
 3. **Build** — `/tdd`**, one subtask at a time.
 4. **Debug** on the ticket — `/diagnose`** for hard bugs or perf regressions.
-5. **Pre-PR** — `/security-secrets-check`** → `/review` → `/create-pr`.
+5. **Pre-PR** — `/security-secrets-check`** → `/review` → `/create-pr`. After open: `/pr-review` (CODEOWNER gate + merge when green).
 6. Move issue: Ready → In Progress → In Review → Done on merge.
 7. Context getting full — `/handoff` or Cursor `/summarize`, then a fresh chat with paths only.
 
