@@ -8,6 +8,38 @@ SKILLS_SRC="$REPO_ROOT/skills"
 USER_SKILLS_DIR="${HOME}/.cursor/skills"
 PROJECT_INSTALL=false
 
+# Expected skill folders (keep in sync with README skill index).
+# install_to still discovers skills/*/; this list is what install.sh prints
+# and validates so new skills (e.g. pr-review) show up in the install output.
+EXPECTED_SKILLS=(
+  caveman
+  create-pr
+  design-an-interface
+  diagnose
+  grill-me
+  grill-with-docs
+  handoff
+  improve-codebase-architecture
+  pr-review
+  prototype
+  qa
+  release-readiness
+  request-refactor-plan
+  review
+  security-secrets-check
+  setup-practical-ai-skills
+  setup-pre-commit
+  task-handoff
+  tdd
+  tenant-isolation-check
+  to-issues
+  to-prd
+  triage
+  ubiquitous-language
+  write-a-skill
+  zoom-out
+)
+
 usage() {
   cat <<EOF
 Usage: $(basename "$0") [--project]
@@ -20,7 +52,11 @@ Options:
 Default target: ~/.cursor/skills/
 Skills are symlinked to this git clone when possible (falls back to copy).
 
+Skill catalog (also printed after install):
+$(printf '  - %s\n' "${EXPECTED_SKILLS[@]}")
+
 After install, run setup-practical-ai-skills once per application repository.
+Invoke /pr-review in Cursor to gate-and-merge GitHub PRs.
 EOF
 }
 
@@ -67,11 +103,33 @@ install_to() {
   done
 }
 
+list_installed_skills() {
+  find "$SKILLS_SRC" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort
+}
+
+validate_expected_skills() {
+  local missing=0 name
+  for name in "${EXPECTED_SKILLS[@]}"; do
+    if [[ ! -d "$SKILLS_SRC/$name" ]]; then
+      echo "ERROR: expected skill missing from repo: $name" >&2
+      missing=1
+    fi
+  done
+  if [[ "$missing" -ne 0 ]]; then
+    exit 1
+  fi
+}
+
+validate_expected_skills
+
 # Prefer symlinks for user install (single source of truth from git clone)
 install_to "$USER_SKILLS_DIR" "symlink"
 
-echo "Installed $(find "$SKILLS_SRC" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ') skills to $USER_SKILLS_DIR:"
-find "$SKILLS_SRC" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort | sed 's/^/  - /'
+installed_count="$(list_installed_skills | wc -l | tr -d ' ')"
+expected_count="${#EXPECTED_SKILLS[@]}"
+
+echo "Installed ${installed_count} skills to $USER_SKILLS_DIR (catalog expects ${expected_count}):"
+list_installed_skills | sed 's/^/  - /'
 
 if $PROJECT_INSTALL; then
   install_to "$(pwd)/.cursor/skills" "copy"
@@ -81,4 +139,5 @@ fi
 
 echo ""
 echo "Next step: open any application repo in Cursor and run setup-practical-ai-skills once."
+echo "PR gate: invoke /pr-review to inspect, approve/request-changes, and squash-merge when green."
 echo "Update skills later: git pull in $REPO_ROOT && re-run this script."

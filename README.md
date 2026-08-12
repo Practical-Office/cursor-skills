@@ -41,7 +41,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 - **By description:** Cursor loads skills when your request matches their description triggers
 - Most skills set `disable-model-invocation: true` — invoke them explicitly for predictable behavior
 
-## Skill index (25)
+## Skill index (26)
 
 | Skill | Purpose |
 |-------|---------|
@@ -67,6 +67,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 | **caveman** | Strip problem to essentials ("caveman debugging") |
 | **security-secrets-check** | Scan diffs for leaked secrets before commit/PR |
 | **task-handoff** | Structured handoff template (goal, done, next, risks, tests) |
+| **pr-review** | Gate PRs: inspect CI/diff, approve or request changes with Why + Next steps, squash-merge when green |
 | **create-pr** | Create GitHub PR via `gh`: status, diff, push, PR body |
 | **tenant-isolation-check** | Review multi-tenant changes for cross-tenant leaks |
 | **release-readiness** | Pre-merge checklist: tests, docs, rollback, security |
@@ -121,10 +122,10 @@ BookIQ and other repos keep `.cursor/rules` and `.cursor/agents` unchanged. Skil
 
 Run after install or before calling a release done:
 
-- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 25 folders
+- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 26 folders (includes **pr-review**)
 - [ ] Each folder has valid `SKILL.md` with `name` and `description` frontmatter
 - [ ] `setup-practical-ai-skills` internal links resolve (issue-tracker-*.md, triage-labels.md, domain.md)
-- [ ] README skill count (25) matches `ls skills | wc -l`
+- [ ] README skill count (26) matches `ls skills | wc -l` and `install.sh` `EXPECTED_SKILLS`
 - [ ] No secrets or tokens in committed files
 - [ ] In an app repo: invoke `setup-practical-ai-skills` and confirm `docs/agents/` is created
 
@@ -132,7 +133,8 @@ Quick verify:
 
 ```bash
 ./scripts/install.sh
-ls ~/.cursor/skills | wc -l          # expect 25
+ls ~/.cursor/skills | wc -l          # expect 26
+ls ~/.cursor/skills | grep -x pr-review
 for d in skills/*/; do grep -q '^name:' "$d/SKILL.md" || echo "MISSING: $d"; done
 ```
 
