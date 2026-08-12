@@ -122,10 +122,10 @@ BookIQ and other repos keep `.cursor/rules` and `.cursor/agents` unchanged. Skil
 
 Run after install or before calling a release done:
 
-- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 25 folders
+- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 26 folders (includes **pr-review**)
 - [ ] Each folder has valid `SKILL.md` with `name` and `description` frontmatter
 - [ ] `setup-practical-ai-skills` internal links resolve (issue-tracker-*.md, triage-labels.md, domain.md)
-- [ ] README skill count (25) matches `ls skills | wc -l`
+- [ ] README skill count (26) matches `ls skills | wc -l` and `install.sh` `EXPECTED_SKILLS`
 - [ ] No secrets or tokens in committed files
 - [ ] In an app repo: invoke `setup-practical-ai-skills` and confirm `docs/agents/` is created
 
@@ -133,7 +133,8 @@ Quick verify:
 
 ```bash
 ./scripts/install.sh
-ls ~/.cursor/skills | wc -l          # expect 25
+ls ~/.cursor/skills | wc -l          # expect 26
+ls ~/.cursor/skills | grep -x pr-review
 for d in skills/*/; do grep -q '^name:' "$d/SKILL.md" || echo "MISSING: $d"; done
 ```
 
