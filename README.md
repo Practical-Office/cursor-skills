@@ -41,7 +41,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 - **By description:** Cursor loads skills when your request matches their description triggers
 - Most skills set `disable-model-invocation: true` — invoke them explicitly for predictable behavior
 
-## Skill index (26)
+## Skill index (28)
 
 | Skill | Purpose |
 |-------|---------|
@@ -51,6 +51,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 | **tdd** | Test-driven development workflow with deep-module guidance |
 | **diagnose** | Systematic debugging with hypothesis-driven investigation |
 | **handoff** | Compact conversation into a handoff for another agent |
+| **isolate-worktree** | Fresh git worktree per parallel ticket |
 | **write-a-skill** | Author new Cursor skills following best practices |
 | **triage** | Process incoming issues through the triage state machine |
 | **to-issues** | Break work into well-specified GitHub issues |
@@ -59,6 +60,7 @@ Run this before using `to-issues`, `triage`, `tdd`, `diagnose`, and related engi
 | **review** | Review an issue or PR against project standards |
 | **improve-codebase-architecture** | Analyze and propose architectural improvements |
 | **prototype** | Rapid prototype with explicit UI vs logic separation |
+| **prove-before-pr** | Evidence section before opening a PR |
 | **ubiquitous-language** | Align code and docs on domain vocabulary |
 | **design-an-interface** | Design module/API interfaces before implementation |
 | **request-refactor-plan** | Request a structured refactoring plan |
@@ -122,10 +124,10 @@ BookIQ and other repos keep `.cursor/rules` and `.cursor/agents` unchanged. Skil
 
 Run after install or before calling a release done:
 
-- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 26 folders (includes **pr-review**)
+- [ ] `./scripts/install.sh` populates `~/.cursor/skills/` with 28 folders (includes **pr-review**, **isolate-worktree**, **prove-before-pr**)
 - [ ] Each folder has valid `SKILL.md` with `name` and `description` frontmatter
 - [ ] `setup-practical-ai-skills` internal links resolve (issue-tracker-*.md, triage-labels.md, domain.md)
-- [ ] README skill count (26) matches `ls skills | wc -l` and `install.sh` `EXPECTED_SKILLS`
+- [ ] README skill count (28) matches `ls skills | wc -l` and `install.sh` `EXPECTED_SKILLS`
 - [ ] No secrets or tokens in committed files
 - [ ] In an app repo: invoke `setup-practical-ai-skills` and confirm `docs/agents/` is created
 
@@ -133,7 +135,7 @@ Quick verify:
 
 ```bash
 ./scripts/install.sh
-ls ~/.cursor/skills | wc -l          # expect 26
+ls ~/.cursor/skills | wc -l          # expect 28
 ls ~/.cursor/skills | grep -x pr-review
 for d in skills/*/; do grep -q '^name:' "$d/SKILL.md" || echo "MISSING: $d"; done
 ```

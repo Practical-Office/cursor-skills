@@ -38,17 +38,15 @@ Phase 7 loops to Phase 5 until QA passes. After a stable slice, optional **post-
 
 ## Phase overview
 
-
-| #   | Phase     | Goal                                      | Primary artifact            |
+| # | Phase | Goal | Primary artifact |
 | --- | --------- | ----------------------------------------- | --------------------------- |
-| 1   | Idea      | Name the problem or opportunity           | Idea note or issue          |
-| 2   | Research  | Resolve unknowns before building          | `docs/research/{topic}.md`  |
-| 3   | Prototype | Validate approach and taste               | Throwaway code + verdict    |
-| 4   | PRD       | Lock end-state product intent             | Versioned `docs/prd/PRD.md` |
-| 5   | Kanban    | Break PRD into tickets on a board         | Board + `wbs.md`            |
-| 6   | Execution | Implement tickets                         | Merged PRs, Done            |
-| 7   | QA        | Human verification; file fixes as tickets | QA plan + new issues        |
-
+| 1 | Idea | Name the problem or opportunity | Idea note or issue |
+| 2 | Research | Resolve unknowns before building | `docs/research/{topic}.md` |
+| 3 | Prototype | Validate approach and taste | Throwaway code + verdict |
+| 4 | PRD | Lock end-state product intent | Versioned `docs/prd/PRD.md` |
+| 5 | Kanban | Break PRD into tickets on a board | Board + `wbs.md` |
+| 6 | Execution | Implement tickets | Merged PRs, Done |
+| 7 | QA | Human verification; file fixes as tickets | QA plan + new issues |
 
 ---
 
@@ -66,10 +64,10 @@ Capture why you're building before research or code.
 
 1. Open a **dedicated idea chat** (not implementation).
 2. State the idea in one paragraph: who it helps, what changes, why now.
-3. Run `/grill-with-docs`** if the repo has `CONTEXT.md` / ADRs — stress-test the idea against domain language. Use `/grill-me` if there is no glossary yet.
+3. Run `/grill-with-docs` if the repo has `CONTEXT.md` / ADRs — stress-test the idea against domain language. Use `/grill-me` if there is no glossary yet.
 4. Classify: **full pipeline** (Phases 2–7) vs **short path** (skip some phases).
 5. Record: GitHub issue `Idea: …`, or `docs/ideas/{slug}.md`.
-6. Optional: `/zoom-out`** if you need a codebase map before research.
+6. Optional: `/zoom-out` if you need a codebase map before research.
 
 ## Exit criteria
 
@@ -91,7 +89,6 @@ Do not write code or a PRD yet.
 | **Known bug** | Cause and fix already clear; no design unknowns | Research, Prototype, PRD | Kanban (one issue) or Execution |
 | **Small refactor** | Code cleanup; behavior unchanged | Research, Prototype, PRD | Idea (brief) → Execution |
 
-
 ---
 
 # Phase 2: Research
@@ -108,8 +105,8 @@ Investigate unknowns before prototype or PRD. Cache findings in the repo.
 ## Activities
 
 1. Open a **research chat** scoped to the unknowns list.
-2. Explore the codebase; run `/zoom-out`** for a module-level map if needed.
-3. If a **blocking production bug** blocks research, run `/diagnose`** (understand/fix the blocker — not feature work).
+2. Explore the codebase; run `/zoom-out` for a module-level map if needed.
+3. If a **blocking production bug** blocks research, run `/diagnose` (understand/fix the blocker — not feature work).
 4. Write `docs/research/{topic}.md`: question, findings, recommendations, open questions.
 5. Update `CONTEXT.md` or ADRs if terms or decisions crystallize.
 
@@ -194,7 +191,7 @@ Describe end state: problem, solution, stories, testing, out of scope — before
 ## Activities
 
 1. Open a **PRD chat** with idea, `docs/research/*`, prototype notes, `@CONTEXT.md`.
-2. Run `/to-prd`** to draft a versioned PRD (e.g. `docs/prd/PRD.md`).
+2. Run `/to-prd` to draft a versioned PRD (e.g. `docs/prd/PRD.md`).
 3. Optional: `/ubiquitous-language` if you need a formal glossary beyond `CONTEXT.md`.
 4. Run `/grill-with-docs` — one question at a time; update `CONTEXT.md` / ADRs; stop when ready for issues.
 5. **Architect** approves version, changelog, and scope.
@@ -229,7 +226,7 @@ Break the PRD into small vertical-slice tickets with dependencies on a board.
 ## Activities
 
 1. Draft `docs/phases/{phase}/kickoff.md` (goal, scope, risks) if the team uses phase kickoffs.
-2. **One planning chat per phase.** Run `/to-issues`** on PRD + kickoff — vertical slices, size S, dependencies, HITL vs AFK; quiz before publish.
+2. **One planning chat per phase.** Run `/to-issues` on PRD + kickoff — vertical slices, size S, dependencies, HITL vs AFK; quiz before publish.
 3. Publish issues; link to a phase epic if used.
 4. Run `/triage` on each issue — labels per `docs/agents/triage-labels.md` (`ready-for-agent` vs `ready-for-human`).
 5. Large refactor only: `/request-refactor-plan` first, then one tracking issue.
@@ -274,16 +271,18 @@ Implement **Ready** tickets until in-scope work is **Done**.
 ## Activities
 
 1. **One new chat per ticket** — never one chat for the whole phase.
-2. **Plan** — subtasks, files, tests; no code. Long tickets: `/task-handoff`** to persist plan.
-3. **Build** — `/tdd`**, one subtask at a time.
-4. **Debug** on the ticket — `/diagnose`** for hard bugs or perf regressions.
-5. **Pre-PR** — `/security-secrets-check`** → `/review` → `/create-pr`. After open: `/pr-review` (CODEOWNER gate + merge when green).
-6. Move issue: Ready → In Progress → In Review → Done on merge.
-7. Context getting full — `/handoff` or Cursor `/summarize`, then a fresh chat with paths only.
+2. **Isolate (when parallel)** — if two or more agents or humans will implement tickets on the same repo at the same time, run `/isolate-worktree` before build. One ticket = one git worktree off `origin/main` (or the repo default base). Never two agents on one checkout. Skip Isolate for a solo human on a single ticket with a clean feature-branch checkout.
+3. **Plan** — subtasks, files, tests; no code. Long tickets: `/task-handoff` to persist plan.
+4. **Build** — `/implement` (default). That skill runs TDD and code-review. One chat per ticket. Use bare `/tdd` only if `/implement` is missing from the install.
+5. **Debug** on the ticket — `/diagnose` for hard bugs or perf regressions.
+6. **Prove** — before `/create-pr` on behavior-changing work (UI, API, worker, connector, money path, OpenAPI/contract-snapshot, fail-closed gate paths): collect evidence (screenshot, short recording, or before/after metric) and put a **Prove** section in the PR body (claim, evidence, how to recheck). Run `/prove-before-pr` when available, or fill Prove by hand. Pure docs/ADR under `docs/`, comment-only, or pure rename may use `Prove: N/A` plus one sentence why. Empty Prove on a behavior PR is a gate fail. App-repo staging `gates/` and write-blocks stay separate fail-closed checks.
+7. **Pre-PR / Ship** — `/security-secrets-check` → `/review` → Prove → `/create-pr` (body must include Prove). After open: `/pr-review`. On REQUEST_CHANGES: fix on the same worktree/branch, push, re-request until APPROVE or escalate to a human. If Isolate was used, stay in that worktree for fix / push / re-request (do not return to the shared clone mid-ticket). Merge only when the existing gate is green (do not replace Polaris / CODEOWNER merge authority with a third-party review-score product).
+8. Move issue: Ready → In Progress → In Review → Done on merge.
+9. Context getting full — `/handoff` or Cursor `/summarize`, then a fresh chat with paths only.
 
 ### AFK loop (optional)
 
-Pick `Ready` + `ready-for-agent` + unblocked → new chat per issue → plan → `/tdd` → gates → PR → merge → repeat. Never auto-pick HITL tickets.
+Pick `Ready` + `ready-for-agent` + unblocked → new chat per issue → Isolate if parallel → plan → `/implement` → Prove → gates → PR → `/pr-review` loop → merge → repeat. Never auto-pick HITL tickets.
 
 ## Exit criteria
 
@@ -292,9 +291,15 @@ Pick `Ready` + `ready-for-agent` + unblocked → new chat per issue → plan →
 ## Example prompt — build
 
 ```text
-/tdd
+/isolate-worktree
+Issue #[N] on [repo]. Create worktree and branch, then stop.
 
-Implement subtask [k] only from approved plan for issue #[N]. Stay in scope.
+# then in that worktree chat:
+/implement
+Implement issue #[N] from the approved plan / tickets. Stay in scope.
+
+# when ready:
+Prove: attach before/after [screenshot | recording | metric]. Then /create-pr.
 ```
 
 ---
@@ -353,16 +358,18 @@ Optional later: `/improve-codebase-architecture` for deferred structural debt.
 4. Plan before build in Phase 6.
 5. QA findings always become tickets — not chat-only fixes.
 6. Board is the source of truth for work in flight.
+7. App repos may keep a thin `BUILDSOP.md` linked from `AGENTS.md` for repo overlays (gates, Polar, write-blocks). Do not fork a full copy of this SOP into each app repo.
 
 ---
 
 ## Related
 
-
-| Document                                                                            | Role                                                               |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Document | Role |
+| --- | --- |
 | [README](../README.md) | Skill catalog, install, and per-skill behavior |
+| `isolate-worktree` | Fresh git worktree per parallel ticket |
+| `prove-before-pr` | Evidence section before opening a PR |
 | App repo `AGENTS.md` | Build commands, scope, team conventions |
+| App repo `BUILDSOP.md` | Thin overlay pointing here + local gates (when present) |
 | App repo `docs/agents/*` | Issue tracker and triage labels (from `setup-practical-ai-skills`) |
-
-
+| App repo Polaris `/pr-review` | Fail-closed merge gate where installed (unchanged authority) |

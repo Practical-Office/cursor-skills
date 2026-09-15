@@ -20,8 +20,10 @@ EXPECTED_SKILLS=(
   grill-with-docs
   handoff
   improve-codebase-architecture
+  isolate-worktree
   pr-review
   prototype
+  prove-before-pr
   qa
   release-readiness
   request-refactor-plan
